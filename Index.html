@@ -239,7 +239,7 @@
     <h1 class="title">С Днём Рождения,</h1>
     <div class="sub-name">Алина</div>
 
-    <!-- Облако приятных слов (теперь идёт сразу после имени, без букета) -->
+    <!-- Облако приятных слов -->
     <div class="compliments-cloud">
       <span class="compliment">✨ Нежная</span>
       <span class="compliment">🌸 Прекрасная</span>
@@ -276,17 +276,16 @@
   <script>
     (function() {
       const container = document.getElementById('sparklesContainer');
-      const numberOfSparkles = 50; // много лепестков
+      const numberOfSparkles = 50;
 
       for (let i = 0; i < numberOfSparkles; i++) {
         const sparkle = document.createElement('div');
         sparkle.classList.add('sparkle');
         
-        // Случайные параметры для каждой частицы
-        const left = Math.random() * 100; // процент
-        const delay = Math.random() * 10; // секунды задержки
-        const duration = 7 + Math.random() * 12; // от 7 до 19 секунд
-        const size = 5 + Math.random() * 18; // размер
+        const left = Math.random() * 100;
+        const delay = Math.random() * 10;
+        const duration = 7 + Math.random() * 12;
+        const size = 5 + Math.random() * 18;
         
         sparkle.style.left = left + '%';
         sparkle.style.animationDelay = delay + 's';
@@ -294,7 +293,6 @@
         sparkle.style.width = size + 'px';
         sparkle.style.height = size + 'px';
         
-        // Дополнительные вариации цвета
         if (Math.random() > 0.7) {
           sparkle.style.background = 'radial-gradient(circle, #ffe5b4 0%, #ffb347 80%)';
           sparkle.style.boxShadow = '0 0 20px #ffaa33';
