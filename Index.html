@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>С днём рождения, Алина! 💖</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: linear-gradient(135deg, #2d1b2e 0%, #4a2040 40%, #7a3b5c 100%);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Playfair Display', 'Georgia', 'Times New Roman', serif;
+      padding: 20px;
+      position: relative;
+      overflow-x: hidden;
+      overflow-y: auto;
+    }
+
+    /* Падающие лепестки и блёстки */
+    .sparkles-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .sparkle {
+      position: absolute;
+      width: 12px;
+      height: 12px;
+      background: radial-gradient(circle, #ffb3c6 0%, #ff4d6d 70%);
+      border-radius: 50% 0 50% 0;
+      transform: rotate(45deg);
+      opacity: 0;
+      animation: fallSparkle 8s infinite ease-in;
+      box-shadow: 0 0 15px #ff99aa;
+    }
+
+    .sparkle:nth-child(odd) {
+      background: radial-gradient(circle, #ffe5ec 0%, #ff758f 70%);
+      border-radius: 0 50% 0 50%;
+    }
+
+    .sparkle:nth-child(3n) {
+      width: 18px;
+      height: 18px;
+      background: radial-gradient(circle, #f8c8d6 0%, #c9184a 80%);
+      border-radius: 50%;
+      transform: rotate(0deg);
+    }
+
+    .sparkle:nth-child(4n) {
+      width: 8px;
+      height: 8px;
+      background: #fff0f3;
+      box-shadow: 0 0 25px #ffd6e0;
+      border-radius: 50%;
+    }
+
+    @keyframes fallSparkle {
+      0% {
+        opacity: 0;
+        transform: translateY(-10vh) rotate(0deg) scale(0.3);
+      }
+      10% {
+        opacity: 0.9;
+      }
+      90% {
+        opacity: 0.7;
+      }
+      100% {
+        opacity: 0;
+        transform: translateY(105vh) rotate(720deg) scale(1.2);
+      }
+    }
+
+    /* Основная карточка */
+    .card {
+      position: relative;
+      z-index: 10;
+      max-width: 850px;
+      width: 100%;
+      background: rgba(255, 245, 250, 0.85);
+      backdrop-filter: blur(20px);
+      background: linear-gradient(145deg, rgba(255,240,245,0.9) 0%, rgba(255,220,230,0.8) 100%);
+      border-radius: 70px 20px 70px 20px;
+      box-shadow: 0 40px 70px rgba(0, 0, 0, 0.5), 0 0 0 2px rgba(255, 255, 255, 0.4), 0 0 80px rgba(255, 105, 135, 0.5);
+      padding: 40px 30px 50px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+      transition: all 0.3s ease;
+    }
+
+    /* Заголовки */
+    .title {
+      font-size: clamp(2.8rem, 8vw, 4.5rem);
+      font-weight: 700;
+      background: linear-gradient(135deg, #b91c4b, #800f2f, #d43f6b);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      text-shadow: 0 2px 10px rgba(255, 180, 200, 0.6);
+      letter-spacing: 2px;
+      line-height: 1.2;
+      margin-bottom: 5px;
+      font-family: 'Cormorant Garamond', 'Georgia', serif;
+    }
+
+    .sub-name {
+      font-size: 2.5rem;
+      font-weight: 600;
+      color: #4a0e2b;
+      text-shadow: 0 0 15px #ffb6c1;
+      background: rgba(255, 245, 250, 0.7);
+      display: inline-block;
+      padding: 0 25px;
+      border-radius: 40px;
+      letter-spacing: 3px;
+      margin-bottom: 10px;
+    }
+
+    /* Букет роз */
+    .bouquet {
+      position: relative;
+      width: 100%;
+      max-width: 550px;
+      margin: 10px auto 15px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      filter: drop-shadow(0 20px 30px rgba(100, 20, 40, 0.6));
+      transition: transform 0.4s ease;
+    }
+
+    .bouquet:hover {
+      transform: scale(1.02);
+    }
+
+    .bouquet svg {
+      width: 100%;
+      height: auto;
+      max-height: 400px;
+    }
+
+    /* Приятные слова (облако комплиментов) */
+    .compliments-cloud {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      gap: 15px 20px;
+      margin: 15px 0 10px;
+      font-family: 'Cormorant Garamond', 'Georgia', serif;
+    }
+
+    .compliment {
+      background: rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(10px);
+      background: linear-gradient(135deg, #ffe9f0, #fff0f5);
+      padding: 10px 22px;
+      border-radius: 40px 10px 40px 10px;
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: #7a1e3c;
+      box-shadow: 0 8px 15px rgba(160, 40, 70, 0.25);
+      border: 1px solid #ffb3c6;
+      letter-spacing: 0.5px;
+      transition: all 0.3s;
+      white-space: nowrap;
+    }
+
+    .compliment:hover {
+      background: #ffdae3;
+      transform: translateY(-3px);
+      box-shadow: 0 15px 20px rgba(180, 40, 70, 0.4);
+      border-color: #ff4d6d;
+    }
+
+    /* Основное поздравление */
+    .message-block {
+      background: rgba(255, 240, 245, 0.8);
+      backdrop-filter: blur(15px);
+      background: #fff5f9;
+      padding: 25px 30px;
+      border-radius: 60px 15px 60px 15px;
+      box-shadow: inset 0 0 25px rgba(255, 192, 203, 0.6), 0 10px 25px rgba(120, 30, 50, 0.4);
+      margin: 15px 0 5px;
+      border: 1px solid rgba(255, 255, 255, 0.8);
+      max-width: 600px;
+      width: 100%;
+    }
+
+    .greeting-text {
+      font-size: 1.4rem;
+      line-height: 1.8;
+      color: #3d1322;
+      font-weight: 500;
+      text-shadow: 0 1px 5px white;
+      font-style: italic;
+    }
+
+    .signature {
+      margin-top: 25px;
+      font-size: 2rem;
+      font-weight: 700;
+      color: #8b1e3f;
+      font-family: 'Cormorant Garamond', 'Georgia', serif;
+      letter-spacing: 2px;
+      background: linear-gradient(to right, #b03052, #5e0f2a);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      text-shadow: 0 2px 12px #ff99bb;
+      border-top: 1px dashed #d95b7c;
+      padding-top: 18px;
+      display: inline-block;
+    }
+
+    .future-husband {
+      font-size: 1.1rem;
+      color: #a83254;
+      font-style: normal;
+      font-weight: 400;
+      letter-spacing: 1px;
+      margin-top: 5px;
+    }
+
+    @media (max-width: 500px) {
+      .card {
+        padding: 25px 18px 35px;
+      }
+      .compliment {
+        font-size: 1rem;
+        padding: 8px 16px;
+        white-space: normal;
+      }
+      .greeting-text {
+        font-size: 1.1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Падающие лепестки/блёстки -->
+  <div class="sparkles-container" id="sparklesContainer"></div>
+
+  <div class="card">
+    <h1 class="title">С Днём Рождения,</h1>
+    <div class="sub-name">Алина</div>
+
+    <!-- Букет роз SVG -->
+    <div class="bouquet">
+      <svg viewBox="0 0 500 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <radialGradient id="roseGrad1" cx="30%" cy="30%" r="70%">
+            <stop offset="0%" stop-color="#ff4d6d" />
+            <stop offset="60%" stop-color="#c9184a" />
+            <stop offset="100%" stop-color="#800f2f" />
+          </radialGradient>
+          <radialGradient id="roseGrad2" cx="25%" cy="25%" r="70%">
+            <stop offset="0%" stop-color="#ff758f" />
+            <stop offset="65%" stop-color="#e01e4f" />
+            <stop offset="100%" stop-color="#9d1b3a" />
+          </radialGradient>
+          <radialGradient id="roseGrad3" cx="30%" cy="30%" r="70%">
+            <stop offset="0%" stop-color="#ff99aa" />
+            <stop offset="50%" stop-color="#d43f6b" />
+            <stop offset="100%" stop-color="#7a1e3c" />
+          </radialGradient>
+          <radialGradient id="leafGrad" cx="40%" cy="30%">
+            <stop offset="0%" stop-color="#5a7d4a" />
+            <stop offset="100%" stop-color="#1e3b1a" />
+          </radialGradient>
+        </defs>
+        
+        <!-- Стебли и листья -->
+        <ellipse cx="250" cy="320" rx="90" ry="30" fill="#2f4f2f" opacity="0.8" />
+        <path d="M180 300 Q160 200 220 140" stroke="#2d5a27" stroke-width="7" fill="none" stroke-linecap="round"/>
+        <path d="M320 290 Q340 190 280 120" stroke="#2d5a27" stroke-width="7" fill="none" stroke-linecap="round"/>
+        <path d="M250 310 Q250 200 250 90" stroke="#1e4a1a" stroke-width="8" fill="none" stroke-linecap="round"/>
+        <path d="M210 300 Q190 220 170 180" stroke="#2d5a27" stroke-width="7" fill="none" stroke-linecap="round"/>
+        <path d="M290 300 Q310 210 330 170" stroke="#2d5a27" stroke-width="7" fill="none" stroke-linecap="round"/>
+        
+        <!-- Листья -->
+        <path d="M200 250 Q160 220 170 190 Q190 200 210 230" fill="url(#leafGrad)" />
+        <path d="M300 240 Q340 210 330 180 Q310 195 290 220" fill="url(#leafGrad)" />
+        <path d="M240 200 Q210 170 220 145 Q240 160 250 185" fill="url(#leafGrad)" />
+        <path d="M270 210 Q310 180 300 155 Q280 170 265 195" fill="url(#leafGrad)" />
+        
+        <!-- Центральная роза (крупная) -->
+        <circle cx="250" cy="115" r="45" fill="url(#roseGrad1)" />
+        <path d="M220 100 Q250 65 280 100 Q250 130 220 100" fill="#c9184a" opacity="0.7"/>
+        <path d="M230 80 Q250 55 270 80 Q250 105 230 80" fill="#ff4d6d" opacity="0.8"/>
+        <circle cx="250" cy="95" r="12" fill="#800f2f" />
+        <circle cx="245" cy="90" r="5" fill="#ffb3c6" />
+        
+        <!-- Левая роза -->
+        <circle cx="165" cy="170" r="38" fill="url(#roseGrad2)" />
+        <path d="M140 160 Q165 130 190 160 Q165 185 140 160" fill="#e01e4f" opacity="0.7"/>
+        <path d="M148 145 Q165 125 182 145 Q165 165 148 145" fill="#ff758f" opacity="0.8"/>
+        <circle cx="165" cy="158" r="10" fill="#9d1b3a" />
+        
+        <!-- Правая роза -->
+        <circle cx="335" cy="160" r="38" fill="url(#roseGrad3)" />
+        <path d="M310 150 Q335 120 360 150 Q335 175 310 150" fill="#d43f6b" opacity="0.7"/>
+        <path d="M318 135 Q335 115 352 135 Q335 155 318 135" fill="#ff99aa" opacity="0.8"/>
+        <circle cx="335" cy="148" r="10" fill="#7a1e3c" />
+        
+        <!-- Верхняя левая -->
+        <circle cx="200" cy="85" r="30" fill="url(#roseGrad1)" />
+        <path d="M185 75 Q200 55 215 75 Q200 95 185 75" fill="#c9184a" opacity="0.7"/>
+        <circle cx="200" cy="78" r="7" fill="#800f2f" />
+        
+        <!-- Верхняя правая -->
+        <circle cx="300" cy="80" r="30" fill="url(#roseGrad3)" />
+        <path d="M285 70 Q300 50 315 70 Q300 90 285 70" fill="#d43f6b" opacity="0.7"/>
+        <circle cx="300" cy="73" r="7" fill="#7a1e3c" />
+        
+        <!-- Маленькие бутоны -->
+        <circle cx="230" cy="60" r="16" fill="#ff758f" />
+        <circle cx="270" cy="55" r="16" fill="#ff4d6d" />
+        <circle cx="250" cy="50" r="14" fill="#e01e4f" />
+        
+        <!-- Упаковка букета -->
+        <path d="M130 300 L250 360 L370 300 Q340 280 250 285 Q160 280 130 300" fill="#f8e3e8" opacity="0.9" stroke="#d48b9c" stroke-width="2"/>
+        <path d="M150 290 L250 350 L350 290" fill="none" stroke="#f4c2d0" stroke-width="4" stroke-dasharray="8 8" opacity="0.8"/>
+        <!-- Бант -->
+        <ellipse cx="250" cy="305" rx="30" ry="15" fill="#c9184a" opacity="0.9" />
+        <ellipse cx="250" cy="305" rx="15" ry="20" fill="#800f2f" opacity="0.9" />
+      </svg>
+    </div>
+
+    <!-- Облако приятных слов -->
+    <div class="compliments-cloud">
+      <span class="compliment">✨ Нежная</span>
+      <span class="compliment">🌸 Прекрасная</span>
+      <span class="compliment">💖 Любимая</span>
+      <span class="compliment">🌟 Удивительная</span>
+      <span class="compliment">🕊️ Воздушная</span>
+      <span class="compliment">🌹 Обворожительная</span>
+      <span class="compliment">🔥 Яркая</span>
+      <span class="compliment">💎 Драгоценная</span>
+      <span class="compliment">🍀 Счастливая</span>
+      <span class="compliment">🎀 Очаровательная</span>
+      <span class="compliment">🌙 Волшебная</span>
+      <span class="compliment">👑 Королева</span>
+      <span class="compliment">🧸 Милая</span>
+      <span class="compliment">☀️ Солнечная</span>
+      <span class="compliment">💞 Родная</span>
+    </div>
+
+    <!-- Основное поздравление -->
+    <div class="message-block">
+      <p class="greeting-text">
+        Алина, с твоим днём!<br>
+        Ты — самое светлое, что случалось в моей жизни. Каждый миг рядом с тобой наполнен теплом, смехом и невероятной нежностью. Твоя улыбка способна растопить любые облака, а твоя доброта делает этот мир лучше. Ты достойна всего самого прекрасного, и я обещаю быть рядом, чтобы каждый твой день был похож на сказку. Пусть сегодня твои глаза сияют ярче всех звёзд, а сердце трепещет от счастья. Я бесконечно благодарен судьбе за встречу с тобой. Ты — моя муза, моя радость и моё будущее.
+      </p>
+      <div class="signature">
+        Твой будущий муж
+      </div>
+      <div class="future-husband">
+        (уже очень скоро)
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (function() {
+      const container = document.getElementById('sparklesContainer');
+      const numberOfSparkles = 50; // много лепестков
+
+      for (let i = 0; i < numberOfSparkles; i++) {
+        const sparkle = document.createElement('div');
+        sparkle.classList.add('sparkle');
+        
+        // Случайные параметры для каждой частицы
+        const left = Math.random() * 100; // процент
+        const delay = Math.random() * 10; // секунды задержки
+        const duration = 7 + Math.random() * 12; // от 7 до 19 секунд
+        const size = 5 + Math.random() * 18; // размер
+        
+        sparkle.style.left = left + '%';
+        sparkle.style.animationDelay = delay + 's';
+        sparkle.style.animationDuration = duration + 's';
+        sparkle.style.width = size + 'px';
+        sparkle.style.height = size + 'px';
+        
+        // Дополнительные вариации цвета
+        if (Math.random() > 0.7) {
+          sparkle.style.background = 'radial-gradient(circle, #ffe5b4 0%, #ffb347 80%)';
+          sparkle.style.boxShadow = '0 0 20px #ffaa33';
+        }
+        
+        container.appendChild(sparkle);
+      }
+    })();
+  </script>
+</body>
+</html>
